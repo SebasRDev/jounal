@@ -34,4 +34,18 @@
     font-weight: 700;
     margin-bottom: 10px;
   }
+
+  .notes__textarea{
+    color: $dark-gray;
+    font-size: 20px;
+    flex: 1 1 auto;
+    resize: none;
+  }
+}
+
+.notes__image{
+  img{
+    max-width: 100%;
+    height: 150px;
+  }
 }

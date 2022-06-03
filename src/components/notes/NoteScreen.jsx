@@ -18,14 +18,15 @@ export const NoteScreen = () => {
           placeholder='what happened today?'
           className='notes__textarea'
         ></textarea>
+        
+        <div className='notes__image'>
+          <img 
+            src="https://mymodernmet.com/wp/wp-content/uploads/2020/02/international-landscape-photographer-of-the-year-thumbnail.jpg" 
+            alt="imagen" 
+          />
+        </div>
       </div>
 
-      <div className='notes__image'>
-        <img 
-          src="https://mymodernmet.com/wp/wp-content/uploads/2020/02/international-landscape-photographer-of-the-year-thumbnail.jpg" 
-          alt="imagen" 
-        />
-      </div>
     </div>
   )
 }
