@@ -1,20 +1,32 @@
 import { types } from "../types/types"
 import { 
   getAuth, 
-  signInWithPopup, 
+  signInWithPopup,
+  signInWithEmailAndPassword,
   GoogleAuthProvider, 
   createUserWithEmailAndPassword, 
   updateProfile 
 } from "firebase/auth";
 import { googleAuthProvider } from "../firebase/firebase-config";
+import { finishLoading, startLoading } from "./ui";
 
 export const startLoginEmailPassword = (email, password) => {
   return (dispatch) => {
+    dispatch( startLoading() );
     
-    setTimeout(()=>{
-      dispatch( login(123,'Matheus') )
-    },1000)
-
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email,password)
+      .then(({user}) => {
+        dispatch(login(user.uid, user.displayName));
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error({errorCode,errorMessage})
+      })
+      .finally(()=>{
+        dispatch(finishLoading());
+      })
   }
 }
 
