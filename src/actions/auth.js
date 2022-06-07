@@ -1,28 +1,36 @@
-import { types } from "../types/types"
+import Swal from 'sweetalert2'
 import { 
   getAuth, 
   signInWithPopup,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider, 
   createUserWithEmailAndPassword, 
-  updateProfile 
+  signInWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  debugErrorMap
 } from "firebase/auth";
+
+import { types } from "../types/types"
 import { googleAuthProvider } from "../firebase/firebase-config";
 import { finishLoading, startLoading } from "./ui";
 
 export const startLoginEmailPassword = (email, password) => {
   return (dispatch) => {
     dispatch( startLoading() );
-    
+
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email,password)
-      .then(({user}) => {
-        dispatch(login(user.uid, user.displayName));
+      .then((userCredential) => {
+        console.log(userCredential)
+        dispatch(login(userCredential.user.uid, userCredential.user.displayName));
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error({errorCode,errorMessage})
+      .catch(({code}) => {
+        const codeName = code.split('/')[1];
+        const {value} = Object.getOwnPropertyDescriptor(debugErrorMap(), codeName);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...Error',
+          text: value
+        })
       })
       .finally(()=>{
         dispatch(finishLoading());
@@ -41,8 +49,14 @@ export const startRegisterWithEmailPassword = (email, password, name) => {
         })
         dispatch(login(user.uid, user.displayName));
       })
-      .catch(e => {
-        console.error(e)
+      .catch(({code}) => {
+        const codeName = code.split('/')[1];
+        const {value} = Object.getOwnPropertyDescriptor(debugErrorMap(), codeName);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...Error',
+          text: value
+        });
       })
   }
 }
@@ -54,12 +68,14 @@ export const startGoogleLogin = () => {
       .then(({user}) => {
         dispatch(login(user.uid, user.displayName));
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log({errorCode, errorMessage, email, credential})
+      .catch(({code}) => {
+        const codeName = code.split('/')[1];
+        const {value} = Object.getOwnPropertyDescriptor(debugErrorMap(), codeName);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...Error',
+          text: value
+        })
       });
   }
 }
@@ -71,5 +87,20 @@ export const login = (uid, displayName) => {
       uid,
       displayName
     }
+  }
+}
+
+export const startLogout = () => {
+  return async (dispatch) => {
+    const auth = getAuth();
+    await signOut(auth)
+
+    dispatch( logout() )
+  }
+}
+
+export const logout = () => {
+  return {
+    type: types.logout
   }
 }
