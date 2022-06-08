@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { 
   BrowserRouter as Router, 
-  Switch, 
-  Route,
+  Switch,
   Redirect
 } from 'react-router-dom'
 import { 
@@ -16,6 +15,7 @@ import { AuthRouter } from './AuthRouter'
 import { login } from '../actions/auth'
 import { PrivateRoute } from './PrivateRoute'
 import { PublicRoute } from './PublicRoute'
+import { startLoadingNotes } from '../actions/notes'
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -25,11 +25,13 @@ export const AppRouter = () => {
 
   useEffect(() => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user)=>{
+    onAuthStateChanged(auth, async(user)=>{
 
       if(user){
         dispatch( login(user.uid, user.displayName) );
         setIsLogged(true);
+        dispatch( startLoadingNotes(user.uid) )
+
       }else{
         setIsLogged(false);
       }
