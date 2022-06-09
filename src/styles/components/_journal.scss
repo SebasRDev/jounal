@@ -66,6 +66,8 @@
 
 .journal__entry--body{
   padding: 10px;
+  flex-grow: 1;
+  
   .journal__entry--title{
     font-size: 14px;
     font-weight: bold;

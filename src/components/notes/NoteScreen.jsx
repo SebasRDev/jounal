@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { activeNote } from '../../actions/notes'
+import { useForm } from '../../hooks/useForm'
 import { NotesAppBar } from './NotesAppBar'
 
 export const NoteScreen = () => {
+  const dispatch = useDispatch()
+
+  const {active:note} = useSelector(state => state.notes)
+  const [values, handleInputChange, reset] = useForm(note)
+  const {title, body, url} = values;
+
+  const activeId = useRef( note.id )
+  useEffect(() => {
+    if(note.id !== activeId.current ) {
+      reset( note );
+      activeId.current = note.id
+    }
+  }, [note, reset])
+  
+  useEffect(()=>{
+    dispatch( activeNote(values.id, {...values}) );
+  }, [values, dispatch])
+
   return (
     <div className='notes__main--content'>
       <NotesAppBar />
@@ -12,19 +33,27 @@ export const NoteScreen = () => {
           placeholder='New Note'
           autoComplete='off'
           className='notes__title--input'
+          name="title"
+          onChange={handleInputChange}
+          value={title}
         />
 
         <textarea 
           placeholder='what happened today?'
           className='notes__textarea'
+          onChange={handleInputChange}
+          name="body"
+          value={body}
         ></textarea>
         
-        <div className='notes__image'>
-          <img 
-            src="https://mymodernmet.com/wp/wp-content/uploads/2020/02/international-landscape-photographer-of-the-year-thumbnail.jpg" 
-            alt="imagen" 
-          />
-        </div>
+        { url &&
+          <div className='notes__image'>
+            <img 
+              src={url}
+              alt="imagen" 
+            />
+          </div>
+        }
       </div>
 
     </div>
