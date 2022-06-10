@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import format from 'date-fns/format'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { startSaveNote, startUploadFile } from '../../actions/notes'
