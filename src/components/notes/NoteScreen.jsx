@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { activeNote } from '../../actions/notes'
+import { activeNote, startDeleteNote } from '../../actions/notes'
 import { useForm } from '../../hooks/useForm'
 import { NotesAppBar } from './NotesAppBar'
 
@@ -9,7 +9,7 @@ export const NoteScreen = () => {
 
   const {active:note} = useSelector(state => state.notes)
   const [values, handleInputChange, reset] = useForm(note)
-  const {title, body, url} = values;
+  const {title, body, id} = values;
 
   const activeId = useRef( note.id )
   useEffect(() => {
@@ -18,6 +18,20 @@ export const NoteScreen = () => {
       activeId.current = note.id
     }
   }, [note, reset])
+
+  const handleDelete = () =>{
+    const noteCard = document.querySelector(`[data-id="${id}"]`);
+    console.log(noteCard)
+    if(noteCard.classList.contains('animate__backInLeft')){
+      noteCard.classList.remove('animate__backInLeft')
+      noteCard.classList.add('animate__backOutLeft')
+    }else{
+      noteCard.classList.add('animate__backOutLeft')
+    }
+    setTimeout(() => {
+      dispatch( startDeleteNote( id ) )
+    }, 1000);
+  }
   
   useEffect(()=>{
     dispatch( activeNote(values.id, {...values}) );
@@ -46,15 +60,22 @@ export const NoteScreen = () => {
           value={body}
         ></textarea>
         
-        { url &&
+        { note.url &&
           <div className='notes__image'>
             <img 
-              src={url}
+              src={note.url}
               alt="imagen" 
             />
           </div>
         }
       </div>
+
+      <button
+        className='btn btn--danger'
+        onClick={handleDelete}
+      >
+        Delete
+      </button>
 
     </div>
   )
