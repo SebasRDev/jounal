@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/jounal_app/static/css/main.5e8fb13f.css",
-    "main.js": "/jounal_app/static/js/main.05931efb.js",
-    "index.html": "/jounal_app/index.html",
-    "main.5e8fb13f.css.map": "/jounal_app/static/css/main.5e8fb13f.css.map",
-    "main.05931efb.js.map": "/jounal_app/static/js/main.05931efb.js.map"
+    "main.css": "/jounal/static/css/main.5e8fb13f.css",
+    "main.js": "/jounal/static/js/main.a7249ff9.js",
+    "index.html": "/jounal/index.html",
+    "main.5e8fb13f.css.map": "/jounal/static/css/main.5e8fb13f.css.map",
+    "main.a7249ff9.js.map": "/jounal/static/js/main.a7249ff9.js.map"
   },
   "entrypoints": [
     "static/css/main.5e8fb13f.css",
-    "static/js/main.05931efb.js"
+    "static/js/main.a7249ff9.js"
   ]
 }

@@ -52,7 +52,7 @@ export const AppRouter = () => {
         <Switch>
           <PublicRoute 
             logged={isLogged} 
-            path="/jounal_app/auth"
+            path="/jounal/auth"
             component={AuthRouter}
           />
           <PrivateRoute
@@ -62,7 +62,7 @@ export const AppRouter = () => {
             component={JournalScreen}
           />
           <Redirect 
-            to="/jounal_app/auth/login"
+            to="/jounal/auth/login"
           />
         </Switch>
       </div>

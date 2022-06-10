@@ -74,7 +74,7 @@ export const LoginScreen = () => {
         </div>
 
         <Link 
-          to="/jounal_app/auth/register"
+          to="/jounal/auth/register"
           className='link'
         >
           Create new account

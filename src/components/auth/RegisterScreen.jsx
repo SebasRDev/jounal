@@ -121,7 +121,7 @@ export const RegisterScreen = () => {
       </div>
 
       <Link 
-        to="/jounal_app/auth/login"
+        to="/jounal/auth/login"
         className='link'
       >
         I already have an account
