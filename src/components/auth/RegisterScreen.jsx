@@ -14,10 +14,10 @@ export const RegisterScreen = () => {
   
 
   const [values, handleInputChange] = useForm({
-    name: 'Sebas',
-    email:'sebas@gmail.com',
-    password:'123456',
-    password2:'123456'
+    name: '',
+    email:'',
+    password:'',
+    password2:''
   });
 
   const {name, email, password, password2} = values;
@@ -121,7 +121,7 @@ export const RegisterScreen = () => {
       </div>
 
       <Link 
-        to="/auth/"
+        to="/journal/auth/login"
         className='link'
       >
         I already have an account

@@ -52,17 +52,17 @@ export const AppRouter = () => {
         <Switch>
           <PublicRoute 
             logged={isLogged} 
-            path="/auth"
+            path="/journal/auth"
             component={AuthRouter}
           />
           <PrivateRoute
             logged={isLogged} 
             exact
-            path="/"
+            path="/journal"
             component={JournalScreen}
           />
           <Redirect 
-            to="/auth/login"
+            to="/journal/auth/login"
           />
         </Switch>
       </div>

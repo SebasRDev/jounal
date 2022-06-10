@@ -10,8 +10,8 @@ export const LoginScreen = () => {
   const { loading } = useSelector(state => state.ui)
 
   const [values, handleInputChange] = useForm({
-    email: 'sebas@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   })
   
   const {email, password} = values;
@@ -74,7 +74,7 @@ export const LoginScreen = () => {
         </div>
 
         <Link 
-          to="/auth/register"
+          to="/journal/auth/register"
           className='link'
         >
           Create new account
