@@ -12,7 +12,7 @@ export const PrivateRoute = ({
       component={(props) => (
         (logged) 
           ? <Component {...props} />
-          : <Redirect to='/journal/auth/login' />
+          : <Redirect to='/jounal_app/auth/login' />
       )}
     />
   )
